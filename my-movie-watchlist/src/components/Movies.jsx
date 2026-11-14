@@ -4,7 +4,7 @@ export default function Movies() {
     const [movies, setMovies] = useState(null);
 
     useEffect(() => {
-        fetch(new URL("../movie-placeholder.json", import.meta.url))
+        fetch(new URL("../netlify/functions/serverless?t=Inception", import.meta.url))
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Could not load movies: ${response.status}`);
