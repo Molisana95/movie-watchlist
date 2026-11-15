@@ -74,11 +74,6 @@ a {
 	text-decoration: none;
 }
 
-h1 {
-  font-size: 3rem;
-  font-weight: 900;
-  letter-spacing: -4.5%;
-}
 
 /* Styles for the header */
 
@@ -91,9 +86,10 @@ h1 {
 
 .nav-container {
   position: relative;
+  padding-top: 1rem;
   display: flex;
-  flex-direction: row;  
-  justify-content: space-evenly;
+  flex-direction: column;  
+  border: 2px solid pink;
   align-items: center;
   background-image: url("./assets/movie-watchlist-bg.png");
   background-size: 100%;
@@ -115,9 +111,14 @@ h1 {
 
 .nav-container h1, .nav-container a {
   z-index: 1;
-  padding: 2rem;
+  padding: 1rem;
 }
 
+.nav-container > h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -4.5%;
+}
 .nav-container a {
   font-weight: 700;
 }
@@ -173,7 +174,7 @@ h1 {
 .movie-list {
   /*Margin top to separate it from the absolute position of the header*/
   margin-top: 250px;
-
+  gap: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,11 +188,11 @@ h1 {
 }
 
 .movie {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-400)
 }
 
 .movie > img {
@@ -216,7 +217,6 @@ h1 {
 .left-info > h2 {
   font-size: 2rem;
   font-weight: 700;
-  font-style: italic;
   margin: 0;
 }
 
@@ -231,27 +231,26 @@ h1 {
 }
 
 /* CSS */
+.like-btn {
+  width: 100%;
+}
+
 .like-btn > button{
-  position: absolute;
-  bottom: -2rem;
-  right: -0.5rem;
   background-color: initial;
   background-image: linear-gradient(-180deg, #FF7E31, #E62C03);
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
   color: #FFFFFF;
   cursor: pointer;
-  height: 40px;
-  line-height: 40px;
+  height: 2.5rem;
+  line-height: 2.5rem;
   outline: 0;
   overflow: hidden;
-  padding: 0 20px;
   pointer-events: auto;
   text-align: center;
   touch-action: manipulation;
-  width: clamp(100px, 50%, 200px);
-  z-index: 9;
   border: 0;
+  width: 100%;
   transition: box-shadow .2s, transform .2s;
 }
 
@@ -261,13 +260,30 @@ h1 {
 }
 
 @media (min-width: 480px) {
+  .nav-container{
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .nav-container h1, .nav-container a {
+    z-index: 1;
+    padding: 2rem;
+  }
   .movie {
-  flex-direction: row;
-  gap: 1rem;
-  padding-bottom: 1rem;
-}
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
   .movie > img {
     max-width: 35%;
+  }
+  .left-info > h2 {
+    font-size: clamp(1.5rem, 4vw, 5rem)
+  }
+
+  .like-btn {
+    max-width: 200px;
   }
 }
 

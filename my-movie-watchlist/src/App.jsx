@@ -6,6 +6,7 @@ import { useState } from "react";
 export default function App() {
     const [movies, setMovies] = useState("");
     const [loading, setLoading] = useState(false);
+    const [err, setErr] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
 
     return (
@@ -19,7 +20,9 @@ export default function App() {
             loading={loading} 
             setMovies={setMovies} 
             setLoading={setLoading} 
-            searchTerm={searchTerm}/>
+            searchTerm={searchTerm}
+            err={err}
+            setErr={setErr}/>
         </>
     );  
 }

@@ -7,16 +7,16 @@ export async function handler(event, context) {
         };
     }
 
-    const title = event.queryStringParameters?.t;
-    if (!title) {
+    const searchTerm = event.queryStringParameters?.s;
+    if (!searchTerm) {
         return {
             statusCode: 400,
-            body: JSON.stringify({ Error: "A movie title is required in the 't' query parameter." }),
+            body: JSON.stringify({ Error: "A movie title is required in the 's' query parameter." }),
         };
     }
 
     const url = new URL("https://www.omdbapi.com/");
-    url.search = new URLSearchParams({ apikey: apiKey, t: title }).toString();
+    url.search = new URLSearchParams({ apikey: apiKey, s: searchTerm }).toString();
 
     const res = await fetch(url);
     const data = await res.json();
