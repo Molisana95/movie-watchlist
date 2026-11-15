@@ -1,13 +1,28 @@
 export async function handler(event, context) {
-    const res = await fetch(`http://www.omdbapi.com/?apikey=${process.env.OPENMOVIE_KEY}&t=${event.queryStringParameters}`)
-    const titleParams = await event.queryStringParameters;
+    const apiKey = process.env.OPENMOVIE_KEY;
+    if (!apiKey) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ Error: "Server configuration error: OPENMOVIE_KEY is not set." }),
+        };
+    }
 
-    console.log("Query Parameters:", titleParams);
+    const title = event.queryStringParameters?.t;
+    if (!title) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ Error: "A movie title is required in the 't' query parameter." }),
+        };
+    }
 
+    const url = new URL("https://www.omdbapi.com/");
+    url.search = new URLSearchParams({ apikey: apiKey, t: title }).toString();
+
+    const res = await fetch(url);
     const data = await res.json();
 
     return {
-    statusCode: 200,
-    body: JSON.stringify(data),
+        statusCode: res.ok ? 200 : 502,
+        body: JSON.stringify(data),
     };
 }

@@ -1,30 +1,54 @@
 import { useState, useEffect } from "react";
 
-export default function Movies() {
-    const [movies, setMovies] = useState(null);
+export default function Movies({ movies, loading, setMovies, setLoading, searchTerm }) {
 
     useEffect(() => {
-        fetch(new URL("../netlify/functions/serverless?t=Inception", import.meta.url))
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Could not load movies: ${response.status}`);
+        setLoading(true);
+        
+        async function fetchMovies() {
+            try {
+                const res = await fetch(`/.netlify/functions/serverless?t=${searchTerm}`);
+                if (!res.ok) {
+                    throw new Error(`Could not load movies: ${res.status}`);
                 }
-                return response.json();
-            })
-                .then(data => setMovies(data))
-            .catch(error => console.error(error));
-    }, [])
+                const data = await res.json();
+                setMovies(data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchMovies();
+    }, [searchTerm]);
+
+     
+    
 
 
     return (
         <div className="movie-list">
+            {loading && <p>Loading...</p>}
+            {!loading && !movies && <p>Search for a movie to see results.</p>}
+            {movies && movies.Error && <p>{movies.Error}</p>}
+            {movies && !movies.Error && (
               <div className="movie">
                   {movies && <img src={movies.Poster} alt={`poster of ${movies.Title}`} />}
                   <div className="movie-info">
+                    <div className="left-info">
+                      {movies && <p>{movies.Year}</p>}
                       {movies && <h2>{movies.Title}</h2>}
                       {movies && <p>{movies.Plot}</p>}
+                    </div>
+                    <div className="right-info">
+                      {movies && <p>{movies.Runtime}</p>}
+                      {movies && <p>{movies.Genre}</p>}
+                    </div>
                   </div>
-              </div>
+                  <div className="like-btn">
+                    <button role="button">Add to Watchlist</button>
+                  </div>
+              </div>)}
         </div>
     )
 }
