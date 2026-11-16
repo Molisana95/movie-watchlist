@@ -89,7 +89,6 @@ a {
   padding-top: 1rem;
   display: flex;
   flex-direction: column;  
-  border: 2px solid pink;
   align-items: center;
   background-image: url("./assets/movie-watchlist-bg.png");
   background-size: 100%;
