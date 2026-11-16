@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import Favourites from "../functionality/Favourites"
 
-export default function Movies({ movies, loading, setMovies, setLoading, searchTerm, err, setErr }) {
-
+export default function Movies({ movies, loading, setMovies, setLoading, searchTerm, err, setErr, fav, setfav }) {
+    
     useEffect(() => {
         setLoading(true);
+        console.log(searchTerm)
         
-        async function fetchMovies() {
+            async function fetchMovies() {
             try {
                 const res = await fetch(`/.netlify/functions/serverless?s=${searchTerm}`);
                 if (!res.ok) {
@@ -19,7 +21,6 @@ export default function Movies({ movies, loading, setMovies, setLoading, searchT
                     setErr(null);
                     setMovies(data.Search);
                 }
-                console.log(data)
 
             } catch (error) {
                 console.error(error);
@@ -30,7 +31,8 @@ export default function Movies({ movies, loading, setMovies, setLoading, searchT
         fetchMovies();
     }, [searchTerm]);
 
-     
+    
+
     const movieRender = () => {
         if (!movies || movies.length === 0) {
             return <p>Search for a movie to see results.</p>;
@@ -50,9 +52,11 @@ export default function Movies({ movies, loading, setMovies, setLoading, searchT
                             <p>{movie.Genre}</p>
                         </div>
                     </div>
-                    <div className="like-btn">
-                        <button role="button">Add</button>
-                    </div>
+                    <Favourites 
+                        movie={movie}
+                        fav={fav}
+                        setfav={setfav}
+                    />
                 </div>
             );
         });
@@ -71,3 +75,21 @@ export default function Movies({ movies, loading, setMovies, setLoading, searchT
 
 }
 
+/*function handleFavMovies (movie) {
+        if(fav.some(m => m.Title === movie.Title)) {
+            const newArr = fav.filter(m => m.Title !== movie.Title)
+            setfav(newArr)
+        } else {
+            setfav(prev => [...prev, movie])
+
+        }
+    }
+        
+    <div className="like-btn">
+        {fav.some(m => m.Title === movie.Title) ? 
+            <button role="button" onClick={() => handleFavMovies(movie)}>Remove</button> :
+            <button role="button" onClick={() => handleFavMovies(movie)}>Add</button>
+        }
+                        
+    </div>
+    */

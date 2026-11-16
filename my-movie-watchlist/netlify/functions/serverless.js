@@ -8,13 +8,13 @@ export async function handler(event, context) {
     }
 
     const searchTerm = event.queryStringParameters?.s;
+
     if (!searchTerm) {
         return {
             statusCode: 400,
             body: JSON.stringify({ Error: "A movie title is required in the 's' query parameter." }),
         };
     }
-
     const url = new URL("https://www.omdbapi.com/");
     url.search = new URLSearchParams({ apikey: apiKey, s: searchTerm }).toString();
 
@@ -25,4 +25,6 @@ export async function handler(event, context) {
         statusCode: res.ok ? 200 : 502,
         body: JSON.stringify(data),
     };
+
+
 }
