@@ -187,11 +187,24 @@ a {
 }
 
 .movie {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--gray-400)
+}
+
+.like-svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(45px, 12vw, 65px);
+} 
+
+.like-svg > img {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;;
+  border-radius: 50%;
 }
 
 .movie > img {
@@ -229,7 +242,6 @@ a {
   gap: 0.5rem;
 }
 
-/* CSS */
 .like-btn {
   width: 100%;
 }
@@ -288,6 +300,19 @@ a {
   .movie > img {
     max-width: 35%;
   }
+
+  .like-svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: clamp(45px, 15vw, 70px);
+  } 
+
+.like-svg > img {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;;
+    border-radius: 50%;
+  }
+
   .left-info > h2 {
     font-size: clamp(1.5rem, 4vw, 3.5rem)
   }

@@ -12,7 +12,7 @@ export default function Header ({ searchTerm, setSearchTerm, loading }) {
     <div className="header-container"> 
       <div className="nav-container">
         <Link to="/" className="home-link">
-          <h1>Find your film</h1>        
+          <h1>Find your Movie</h1>        
         </Link>
         <Link to="/watchlist">My Watchlist</Link>
       </div>

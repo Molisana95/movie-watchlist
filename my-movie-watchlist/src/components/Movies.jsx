@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import Favourites from "../functionality/Favourites"
+import emptyLike from "../assets/emptyLike.svg";
+import filledLike from "../assets/filledLike.svg";
 
 export default function Movies({ movies, loading, setMovies, setLoading, searchTerm, err, setErr, fav, setfav }) {
     
@@ -57,6 +59,11 @@ export default function Movies({ movies, loading, setMovies, setLoading, searchT
                         fav={fav}
                         setfav={setfav}
                     />
+                    {<div className="like-svg">
+                        <img src={fav.some(m => m.Title === movie.Title) ? filledLike : emptyLike} 
+                             alt="heart"/>
+                    </div>
+                    }
                 </div>
             );
         });
